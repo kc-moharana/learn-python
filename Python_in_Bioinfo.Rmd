@@ -1,0 +1,148 @@
+---
+title: "Python in Bioinformatics"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+
+# Strings and advanced string functions
+
+```{python}
+dna = 'gcatgacgttattacgactctgtcacgccgcggtgcgactgaggcgtggcgtctgctggg'
+print len(dna)
+
+import string 
+print string.count(dna,"a")
+
+print "Total leng: %d" %(string.count(dna,"a")+string.count(dna,"t")+string.count(dna,"g")+string.count(dna,"c"))
+
+
+print string.replace(dna, "a", "A")
+```
+## Exercise
+
+Exercise 2.1. GC content
+
+```{python}
+from string import *
+dna = 'gcatgacgttattacgactctgtcacgccgcggtgcgactgaggcgtggcgtctgctggg'
+
+print "GC percentage : %2.0f%%" %(100*(count(dna,"g")+count(dna,"c"))/len(dna))
+
+```
+
+Exercise 2.2. DNA complement
+```{python}
+from string import *
+dna = 'gcatgacgttattacgactctgtcacgccgcggtgcgactgaggcgtggcgtctgctggg'
+print dna
+
+## Two methods for transliteration
+# Method-1
+# dna = replace(replace(replace(replace(replace(replace(dna, 'a', 'x'), 't', 'a'), 'x', 't'), 'c', 'x'), 'g', 'c'), 'x', 'g')
+
+#Methods-2
+t=maketrans("AGCTagct", "TCGAtcga")
+dna = translate(dna, t)
+
+
+rev = dna[::-1]
+print dna
+
+```
+
+
+## Substrings and finding substrings
+
++ **find(s, *args)**  
+    find(s, sub [,start [,end]]) -> in  
+
+    Return the lowest index in s where substring sub is found,
+    such that sub is contained within s[start,end].  Optional
+    arguments start and end are interpreted as in slice notation.  
+
+    Return -1 on failure.  
+    
++ index(s, *args)  
+    index(s, sub [,start [,end]]) -> int  
+
+    Like find but raises ValueError when the substring is not found.  
+
+
++ If no match is found find returns -1 whereas index produce an error
+
+
+```{python}
+## Useing ''' for multiline strings
+
+dna = '''ttcacctatgaatggactgtccccaaagaagtaggacccactaatgcagatcctgtg
+tgtctagctaagatgtattattctgctgtggatcccactaaagatatattcactgggcttattgggccaa
+tgaaaatatgcaagaaaggaagtttacatgcaaatgggagacagaaagatgtagacaaggaattctattt
+gtttcctacagtatttgatgagaatgagagtttactcctggaagataatattagaatgtttacaactgca
+cctgatcaggtggataaggaagatgaagactttcaggaatctaataaaatgcactccatgaatggattca
+tgtatgggaatcagccgggtctcactatgtgcaaaggagattcggtcgtgtggtacttattcagcgccgg
+aaatgaggccgatgtacatggaatatacttttcaggaaacacatatctgtggagaggagaacggagagac
+acagcaaacctcttccctcaaacaagtcttacgctccacatgtggcctgacacagaggggacttttaatg
+ttgaatgccttacaactgatcattacacaggcggcatgaagcaaaaatatactgtgaaccaatgcaggcg
+gcagtctgaggattccaccttctacctgggagagaggacatactatatcgcagcagtggaggtggaatgg
+gattattccccacaaagggagtgggaaaaggagctgcatcatttacaagagcagaatgtttcaaatgcat
+ttttagataagggagagttttacataggctcaaagtacaagaaagttgtgtatcggcagtatactgatag
+cacattccgtgttccagtggagagaaaagctgaagaagaacatctgggaattctaggtccacaacttcat
+gcagatgttggagacaaagtcaaaattatctttaaaaacatggccacaaggccctactcaatacatgccc
+atggggtacaaacagagagttctacagttactccaacattaccaggtgaaactctcacttacgtatggaa
+aatcccagaaagatctggagctggaacagaggattctgcttgtattccatgggcttattattcaactgtg
+gatcaagttaaggacctctacagtggattaattggccccctgattgtttgtcgaagaccttacttgaaag
+tattcaatcccagaaggaagctggaatttgcccttctgtttctagtttttgatgagaatgaatcttggta
+cttagatgacaacatcaaaacatactctgatcaccccgagaaagtaaacaaagatgatgaggaattcata
+gaaagcaataaaatgcatgctattaatggaagaatgtttggaaacct'''
+
+#print dna
+
+EcoRI = 'gaattc'
+BamHI = 'ggatcc'
+print dna.find(EcoRI)  ## without writing import string, as dna is string and thus has an function find
+
+import string 
+#print string.find(dna, EcoRI)  ## after import
+#print string.index(dna, EcoRI)
+
+## to get all poitions advance to the next higher position
+#print dna.find(EcoRI, 200) 
+
+
+
+site = string.find(dna,EcoRI)
+while site!=-1:
+  if site !=-1:
+    print "substring? %s located at %d" %(EcoRI, site)
+  site = string.find(dna, EcoRI, site+1)
+  
+
+
+```
+
+## Generate all possible digests with two enzymes
+write a function that takes a list of enzymes (['EcoRI', 'HindIII', 'BamHI']) and returns all possible combination of two enzymes.
+
+
+```{python}
+def gen_all_digests(enz):
+  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
