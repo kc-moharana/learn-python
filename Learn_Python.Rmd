@@ -1,0 +1,2256 @@
+---
+title: "Python Basics"
+output: html_notebook
+---
+
+# What is Python?
+
+*Python is a 
+  + interpreted language.
+  + can be intereacted with the interpretor directly. (using python prompt, unlike perl and like R)
+  + It checks the line for error, when it encounters the line. Hence in industry python needs heavy testing. (each line must be run with proper test case)
+  
+```{python}
+if 1:
+  print "Hello"
+else:
+  FunNotExists("Error!!")
+## As it never encounters the else part, it does not checks whether    FunNotExists() exists or not.
+```
+  + Python 2 and Python 3: if you know 2, migrating to 3 is easy. 
+
+# A Good First Program: Hello world
+
+```{python}
+# Print 'Hello world!!' to the screen using print()
+print("Hello world!!")
+```
+## How to run a python program
++ We can type on the python interpreter directly 
++ Save the statements in a file with .py extension. and run on terminal 
+> **on terminal** $ python hello.py 
++ On interpreter, also we can run a python script.
+> >>> execfile('hello.py')
+
++ to run a script interactively from terminal 
+> python -i hellow.py
+
+## More formal hello world 
+
+```{python}
+#!/usr/bin/env python
+
+# import modules used here -- sys is a very standard one
+import sys
+
+# Gather our code in a main() function
+def main():
+    print 'Hello there', sys.argv[1]
+    # Command line args are in sys.argv[1], sys.argv[2] ...
+    # sys.argv[0] is the script name itself and can be ignored
+
+# Standard boilerplate to call the main() function to begin
+# the program.
+
+#  The advantage of using this boilerplate is that it enables execution of the main() from this script file only and restrict running the main() from the modules (other library scripts), although we can inherit call their functions into our current script.  
+if __name__ == '__main__':
+    main()
+```
+*What is a boilerplate:*   
+  In computer programming, boilerplate code or boilerplate refers to sections of code that have to be included in many places with little or no alteration. It is often used when referring to languages that are considered verbose, i.e. the programmer must write a lot of code to do minimal jobs
+*import sys:*  
+  It is a module to load OS specific modules into the script. try dir(sys) to know more
+
+
+
+
+# Getting help : help()
++ On python interactive shell type: help()
++This function helps(), accepts name of a function and returns a brief description and parameters required. 
+
+```{python}
+help(dir)
+```
+
+
+## Look around the enviornment and help documents
++ We can check what are the variables and functions loaded into the current workspace using the function dir()
+
+```{python}
+print dir()
+```
++ The in-buit functions can be explored by invoking dir() with \_\_builtins\_\_ as parameter
+```{python}
+import sys
+print dir()
+print 
+print "#List of __builtins__ functions: "
+print dir(__builtins__)
+
+print 
+print "#List of sys functions"
+print dir(sys)
+
+```
+
+## Better understanding boilerplate (if \_\_main\_\_):
+Now we know that defining the dunction adds it to the enviornment. So using if __main__ makes sure it is present in the current script. Hence use it in calling other fuunctions. 
+
+
+# Making documentation
+If the first statement of a module, class or function is a string, it is used as the documentation which can be
+accessed by the __doc__ attribute of the object.
+
+> On Interactive shell: ambiguous_dna_alphabet.__doc__
+
+
+# Data type, Variables printing 
+
++ A literal can be printed to the terminal using print().
++ Along with normal printing formatted printing are tricky.
++ Variables are embeded inside a string by using specialized format sequences and then putting the variables at the end with a special syntax
++ % is called place holder
+  - %s, %r, and %d : They tell Python to take the variable on the right and put it in to replace the %s with its valu
+  - Use the %r for debugging, since it displays the "raw" data of the variable,
+
+```{python}
+data = "test"
+numb = 12
+call =1.245
+bool=True
+data2 = numb+2
+
+print "[simple print ]    data=", data
+print "[Formatted print ] data= %s" % data
+
+print "numb= %d" %numb
+print "call= %0.2f" %call
+print "bool= %s" %bool
+print "bool= %d" %bool
+print "data2= %r" %data2
+
+print "together= %s,%d,%f,%s" % (data,numb,call,bool)
+
+#---
+my_age = 35 # not a lie
+my_height = 74 # inches
+my_weight = 180 # lbs
+# this line is tricky, try to get it exactly right
+print "If I add %d, %d, and %d I get %d." % (
+    my_age, my_height, my_weight, my_age + my_height + my_weight)
+
+#---
+a = "10"
+b = "c"
+print int(a)*b
+
+```
+
+## Combinbing two variables in the same line using print() 
+it can be done using comma(,) and plus (+).
+- using comma puts a space between two literals
+- using plus just combines the two literal, and no space between them.
+
+```{python}
+print "Hello" + "World!!"
+print "Hello","World!!"
+```
+
+## Single line and multi-line comments
++ \# (pound character) is used to comment a statement in python scripts
++ \"\"\": blocks with a pair of this symbols are ignored. Used for multi-line commnet prinitng 
+
+
+
+## More complex printing 
+ 
++ The %r will give you the "raw programmer's" version of variable, also known as the "representation."
+
+```{python}
+formatter = "%r %r %r %r"
+
+print formatter % (1, 2, 3, 4)
+print formatter % ("one", "two", "three", "four")
+print formatter % (True, False, False, True)
+print formatter % (formatter, formatter, formatter, formatter)
+print formatter % (
+    "I had this thing.",
+    "That you could type up right.",
+    "But it didn't sing.",
+    "So I said goodnight."
+)
+```
+
+
+# Date and time library
+
+
+```{python}
+#import the datetime library so that we can use it.
+from datetime import datetime
+now = datetime.now()
+print now
+## year, month and day
+current_year = now.year
+current_month = now.month
+current_day = now.day
+print now.year
+print now.month
+print now.day
+
+## Other function on datetime object
+print '%s/%s/%s' % (now.month, now.day,now.year )
+print '%s:%s:%s' % (now.hour, now.minute,now.second )
+
+```
+
+
+# Code block
+In python there is no curly braces ({}) to define the code blocks.
+It uses proper indentation to define a code block.
+
+# Conditional statements
+
++ if, if..else, if..elif..else
+
+```{python}
+## Example 
+def clinic():
+    print "You've just entered the clinic!"
+    print "Do you take the door on the left or the right?"
+    answer = raw_input("Type left or right and hit 'Enter'.").lower()
+    if answer == "left" or answer == "l":
+        print "This is the Verbal Abuse Room, you heap of parrot droppings!"
+    elif answer == "right" or answer == "r":
+        print "Of course this is the Argument Room, I've told you that already!"
+    else:
+        print "You didn't pick left or right! Try again."
+        clinic()
+
+clinic()
+```
+
+
+
+
+```{python}
+# Assign True or False as appropriate on the lines below!
+
+# Set this to True if 17 < 328 or to False if it is not.
+if 17<328:
+  bool_one = True   # We did this one for you!
+else:
+  bool_one=False
+# Set this to True if 100 == (2 * 50) or to False otherwise.
+if 100 == (2 * 50):
+  bool_two = True
+else:
+  bool_two = False
+
+# Set this to True if 19 <= 19 or to False if it is not.
+if 19 <= 19:
+  bool_three = True
+else:
+  bool_three=False
+
+# Set this to True if -22 >= -18 or to False if it is not.
+if -22 >= -18:
+  bool_four = True
+else:
+  bool_four =False
+
+# Set this to True if 99 != (98 + 1) or to False otherwise.
+if 99 != (98 + 1) :
+  bool_five = True
+else:
+  bool_five=False
+```
+
+
+## Boolean Operators
+
+True and True is True
+
+True and False is False
+False and True is False
+False and False is False
+
+True or True is True
+True or False is True
+False or True is True
+False or False is False
+
+Not True is False
+Not False is True
+
+- not, and and or are real operators
+```{python}
+print 1>2 and 4%2==0
+
+```
+
+## order of precedancey not, and, or
+1. *not* is evaluated first;
+2. *and* is evaluated next;
+3. *or* is evaluated last
+
+## If else ladder
+```{python}
+def greater_less_equal_5(answer):
+    if answer>5:
+        return 1
+    elif answer<5:          
+        return -1
+    else:
+        return 0
+        
+print greater_less_equal_5(4)
+print greater_less_equal_5(5)
+print greater_less_equal_5(6)
+
+# .isalpha() : to check is object is alphabet or not 
+```
+
+# Functions
+
+
+## Builtin functions: 
+help(max) : Each module also comes with a one-line summary of what it does;  
+quit() : close python interactive window  
+dir(__builtins__) : If called without an argument, return the names in the current scope.  
+
+## User defined functions
+
+```{python}
+def tax(bill):
+  """Adds 8% tax to a restaurant bill."""
+  bill *= 1.08
+  print "With tax: %f" % bill
+  return bill
+
+def tip(bill):
+  """Adds 15% tip to a restaurant bill."""
+  bill *= 1.15
+  print "With tip: %f" % bill
+  return bill
+  
+meal_cost = 100
+meal_with_tax = tax(meal_cost)
+meal_with_tip = tip(meal_with_tax)
+```
+
+```{python}
+def hello_world():
+  """Prints 'Hello World!' to the console."""
+  print "Hello World!"
+hello_world()  
+```
+
+## Load external modules 
+Syntax: import MODULE_NAME  
+ e.g.: 
+    `  import math  
+      print math.sqrt(25)` 
+      
++ We only really needed the sqrt function, and it can be frustrating to have to keep typing math.sqrt()
+It's possible to import only certain variables or functions from a given module. Pulling in just a single function from a module is called a function import, and it's done with the from keyword:
+from module import function
+
+```{python}
+# Import *just* the sqrt function from math on line 3!
+
+from math import sqrt
+print sqrt(25)
+```
+
++ want all of the variables and functions in a module
+ from module import *
++ dir(math) : returns all varaibles and function from math
++ type() : returns the type of the data it receives as an argument.
+```{python}
+# Print out the types of an integer, a float,
+# and a string on separate lines below.
+
+print type(10)
+print type(10.1)
+print type("Data")
+```
+
+
+
+```{python}
+def distance_from_zero(n):
+ # print type(n)==int
+  if type(n)==int or type(n)==float:
+    return abs(n)
+  else:
+    return "nope"
+
+print distance_from_zero(10)
+    
+```
+
+## Exercise: Vaccation 
+```{python}
+def hotel_cost(nights):
+  return 140*nights
+
+def plane_ride_cost(city):
+  if city == "Charlotte":
+    return 183
+  elif city== "Tampa":
+    return 220
+  elif city =="Pittsburgh":
+    return 222
+  elif city == "Los Angeles":
+    return 475
+  else:
+    return 0
+  
+def rental_car_cost(days):
+  if days >=7:
+    return 40*days - 50
+  elif days >=3:
+    return 40*days - 20
+  else:
+    return days*40
+  
+def trip_cost(city, days,spending_money):
+ 	return rental_car_cost(days)+hotel_cost(days)+plane_ride_cost(city)+spending_money
+
+
+print trip_cost("Los Angeles", 5, 600)
+```
+
+
+
+# Lists, tuples and Dictionaries
+
+## Lists
++ List is a number of variables together in a order.  
+Syntax:  
+empty_list = []
+
+```{python}
+fruits = ["apple", "orange", "banana"]
+
+# list.append(): Add elements to list
+fruits.append("mango")
+print fruits
+
+## Slicing list using colon(:)
+suitcase = ["sunglasses", "hat", "passport", "laptop", "suit", "shoes"]
+
+### The first and second items (index zero and one)
+first = suitcase[0:2]
+### Third and fourth items (index two and three)
+middle = suitcase[2:4]
+### The last two items (index four and five)
+last =  suitcase[4:6]
+
+
+animals = "catdogfrog"
+### The first three characters of animals
+cat = animals[:3]
+### The fourth through sixth characters
+dog = animals[3:6]
+### From the seventh character to the end
+frog = animals[6:]
+
+
+# index() and insert()
+animals = ["aardvark", "badger", "duck", "emu", "fennec fox"]
+duck_index = animals.index("duck")# Use index() to find index of "duck"
+
+# Your code here!
+animals.insert(duck_index, "cobra")  ## Insert at he index of duck
+
+print animals # Observe what prints after the insert operation
+
+```
+### Tuples: immutable lists 
++ Ordinary lists are *mutable*
++ Touples are like lists, but they could not be modified during execution. They are static and resemble with array in Fortan or C-language. 
++ It will issue error if we try to manipulate it. 
++ Special case touples:
+    - Touple with one element: it requires an trailing comma  
+    `mytouple=('str1',)   ## One element lists do not require the training comma, doesnt harm if you put`
+    
+
+```{python}
+tup1 = (1,2,3,'a','b')
+tup1.append('c')  ## Error : 'tuple' object has no attribute 'append'
+```
+### Searching an element in a list/touple
++ The operator *in* can be used to check if a list contans a specific element
+```{python}
+list = [1,2,3,'a','b']
+if 'a' in list:
+  print "Found a!!"
+
+```
+### Looping lists using for()
++ for loop can be used for iterating over a list/touple
+```{python}
+animals = ["cat", "ant", "bat"]
+animals.sort()
+
+for animal in animals:
+  print animal
+
+```
++ C-style for() loop
+
+```{python}
+animals = ["cat", "ant", "bat"]
+
+## Syntax range(START,END,STEP)
+for i in range(0,len(animals), 1):
+  print animals[i]
+
+```
+
+## Dictionaries
++ Also called hash or associative array
++ A dictionary is similar to a list, but you access values by looking up a key instead of an index. 
++ A key can be any string or number. 
++ Dictionaries are enclosed in curly braces, like so:
+
+  `d = {'key1' : 1, 'key2' : 2, 'key3' : 3}`  
+  `menu = {} # Empty dictionary`
+  `d['key1']  # Extract item refering to key1`  
+  `d.keys()   # returns list of keys `  
+  `d.has_key('key1')  # reruns a logical value if keys presnt in d`  
+  `'key1' in d    ## same as d.has_key()`  
+  `d.get('key1')`
+  `d.items()  # returns list of (keys, value) touples`
+  `d.update('key1')   # Update `
+  
+  
+```{python}
+# Assigning a dictionary with three key-value pairs to residents:
+residents = {'Puffin' : 104, 'Sloth' : 105, 'Burmese Python' : 106}
+
+print residents['Puffin'] # Prints Puffin's room number
+
+# Your code here!
+print residents['Sloth']
+print residents['Burmese Python']
+```
+
++ del(): Delete an item from dictionary  
+`del dict_name[key_name]`  
+
+` backpack = ['xylophone', 'dagger', 'tent', 'bread loaf']`  
+` backpack.remove("dagger")`   
+
+```{python}
+inventory = {
+  'gold' : 500,
+  'pouch' : ['flint', 'twine', 'gemstone'], # Assigned a new list to 'pouch' key
+  'backpack' : ['xylophone','dagger', 'bedroll','bread loaf']
+}
+
+# Adding a key 'burlap bag' and assigning a list to it
+inventory['burlap bag'] = ['apple', 'small ruby', 'three-toed sloth']
+
+# Sorting the list found under the key 'pouch'
+inventory['pouch'].sort() 
+
+# Your code here
+inventory['pocket']=['seashell', 'strange berry', 'lint']
+inventory['backpack'].sort() 
+inventory['backpack'].remove('dagger')
+inventory['gold']+=50
+
+```
+
+## manipulating lists
+
+### Removing elements from lists
+
+- n.pop(index) will remove the item at **index** from the list and return it to you:  
+```{python}
+n = [1, 3, 5]
+n.pop(1)
+# Returns 3 (the item at index 1)
+print n
+# prints [1, 5]
+```
+
++ n.remove(item) will remove the actual item if it finds it
+```{python}
+n = [1, 3, 5]
+n.remove(1)
+# Removes 1 from the list,
+# NOT the item at index 1
+print n
+# prints [3, 5]
+
+```
+
++ del(n[1]) is like .pop in that it will remove the item at the given index, but it won't return it.  
+
+### Append element to the list
++ n.append(value) will append value to the list n 
+
+```{python}
+my_list = [1, 2, 3]
+my_list.append(4)
+print my_list
+# prints [1, 2, 3, 4]
+
+```
+
+### range()
++ range() function returns a list of integers. 
++ Syntax: range(START, END, STEP)
+
+
+```{python}
+def double_list(x):
+  for i in range(0,len(x)):
+    print x[i]
+  return x
+# Don't forget to return your new list!
+		
+n=[0,1]		
+double_list(n)
+print range(0,5)
+```
+### xrange(): alternative to range()
++ it is an alternative to range()
++ It consumes less CPU and storage. 
+
+
+### join()
+
+```{python}
+letters = ['a', 'b', 'c', 'd']
+print " ".join(letters)
+print "---".join(letters)
+```
+### random generator
+
+from random import randint
+coin = randint(0, 1)
+
+
+```{python}
+def reverse(text):
+  rev=[]
+  for i in range(1,len(text)+1):
+    rev.append(text[-i])
+  
+  
+  return "".join(rev)
+  
+print reverse("Python!")
+```
+
+
+
+
+## Exercise : Battleship game
+
+```{python}
+from random import randint
+
+board = []
+
+for x in range(0, 5):
+  board.append(["O"] * 5)
+
+def print_board(board):
+  for row in board:
+    print " ".join(row)
+
+print_board(board)
+
+def random_row(board):
+  return randint(0, len(board) - 1)
+
+def random_col(board):
+  return randint(0, len(board[0]) - 1)
+
+ship_row = random_row(board)
+ship_col = random_col(board)
+print ship_row
+print ship_col
+
+# Everything from here on should be in your for loop
+# don't forget to properly indent!
+for turn in range(4):
+  guess_row = int(raw_input("Guess Row: "))
+  guess_col = int(raw_input("Guess Col: "))
+
+  if guess_row == ship_row and guess_col == ship_col:
+    print "Congratulations! You sank my battleship!"
+    break
+  else:
+    if guess_row not in range(5) or \
+      guess_col not in range(5):
+      print "Oops, that's not even in the ocean."
+    elif board[guess_row][guess_col] == "X":
+      print( "You guessed that one already." )
+    else:
+      print "You missed my battleship!"
+      board[guess_row][guess_col] = "X"
+    print_board(board)
+  print "Turn", turn+1
+  if turn ==3:
+    print "Game Over"
+
+```
+
+### Extra Credit
+
+You can also add on to your Battleship! program to make it more complex and fun to play. Here are some ideas for enhancements-maybe you can think of some more!
+
+    1. Make multiple battleships: you'll need to be careful because you need to make sure that you don't place battleships on top of each other on the game board. You'll also want to make sure that you balance the size of the board with the number of ships so the game is still challenging and fun to play.
+
+    2. Make battleships of different sizes: this is trickier than it sounds. All the parts of the battleship need to be vertically or horizontally touching and you'll need to make sure you don't accidentally place part of a ship off the side of the board.
+
+    3. Make your game a two-player game.
+
+    4. Use functions to allow your game to have more features like rematches, statistics and more!
+
+Some of these options will be easier after we cover loops in the next lesson. Think about coming back to Battleship! after a few more lessons and see what other changes you can make!
+
+## While..else loop
+Something completely different about Python is the while/else construction. 
+while/else is similar to if/else, but there is a difference: the else block will execute anytime the loop condition is evaluated to False. 
+This means that it will execute if the loop is never entered or if the loop exits normally. *If the loop exits as the result of a break, the else will not be executed*.
+
+
+```{python}
+from random import randint
+
+# Generates a number from 1 through 10 inclusive
+random_number = randint(1, 10)
+
+guesses_left = 3
+# Start your game!
+while guesses_left>0:
+  guess = int(raw_input("Your guess: "))
+  if guess == random_number:
+    print "You win!"
+    break
+  guesses_left-=1
+else:
+  print "You lose."
+```
+
+## for loop using range()
+
+```{python}
+for i in range(20):
+  print i
+# prints 0-19   
+  
+```
+## the comma (,)
+
+The , character after our print statement means that our next print statement keeps printing on the same line.
+```{python}
+phrase = "A bird in the hand..."
+
+# Add your for loop
+for char in phrase:
+  if char =="A" or char =="a":
+    print "X",
+  else:
+    print char,
+
+#Don't delete this print statement!
+print
+```
+
+## Looping over a dictionary
+
+```{python}
+d = {'x': 9, 'y': 10, 'z': 20}
+for key in d:
+  if d[key] == 10:
+    print "This dictionary has the value 10!"
+
+d = {'a': 'apple', 'b': 'berry', 'c': 'cherry'}
+
+for key in d:
+  # Your code here!
+  print key, d[key]
+```
+
+## Counting as you go
+
+A weakness of using this for-each style of iteration is that you don't know the index of the thing you're looking at. Generally this isn't an issue, but at times it is useful to know how far into the list you are. Thankfully the built-in **enumerate()** function helps with this.  
+
+enumerate() works by supplying a corresponding index to each element in the list that you pass it. Each time you go through the loop, index will be one greater, and item will be the next item in the sequence. It's very similar to using a normal for loop with a list, except this gives us an easy way to count how many items we've seen so far.  
+
+```{python}
+choices = ['pizza', 'pasta', 'salad', 'nachos']
+
+print 'Your choices are:'
+for index, item in enumerate(choices):
+  print index, item
+```
+
+## Iterate over multiple lists
+
++ It's also common to need to iterate over two lists at once. THis can be done using a for loop.
+
+`
+for i in range(len(xlist)):
+  x = xlist[i]; y = ylist[i]; z = zlist[i]
+  # or
+  x,y,z= xlist[i], ylist[i], zlist[i]
+  
+`
+
++ This can be performed efficiently using the built-in **zip()** function.
+
++ zip() will create pairs of elements when passed two lists, and will stop at the end of the shorter list.
+
++ zip() can handle three or more lists as well!
+
+```{python}
+list_a = [3, 9, 17, 15, 19]
+list_b = [2, 4, 8, 10, 30, 40, 50, 60, 70, 80, 90]
+
+for a, b in zip(list_a, list_b):
+  # Add your code here!
+  if a>=b:
+    print a
+  else:
+    print b
+```
+
+## For.. else loop
++ Just like with while, for loops may have an else associated with them.
+
++ In this case, the else statement is executed after the for, but only if the for ends normally-that is, not with a break. This code will break when it hits 'tomato', so the else block won't be executed.
+
++ The for ... else statement is used to implement search loops. 
+The else clause runs only if the loop completed, for example, if a break statement wasn't encountered.
+
+`for thing in container:
+    if something_about(thing):
+        # Found it!
+        do_something(thing)
+        break
+else:
+    # Didn't find it..
+    no_such_thing()
+    # deal with the situation that the loop never ran.
+`
+
+
+
+```{python}
+fruits = ['banana', 'apple', 'orange', 'tomato', 'pear', 'grape']
+
+## it will stop as hits with tomato, and else part is not executed
+print "else part not executed"
+print 'You have...'
+for f in fruits:
+  if f == 'tomato':
+    print 'A tomato is not a fruit!' # (It actually is.)
+    break
+  print 'A', f
+else:
+  print 'A fine selection of fruits!'
+
+print   
+print "else part Executed!!! "
+print 'You have...'
+for f in fruits:
+  if f == 'chicken':
+    print 'A chicken is not a fruit!' # 
+    break
+  print 'A', f
+else:
+  print 'A fine selection of fruits!'
+  
+```
+
+
+## factorial
+
+```{python}
+def factorial(x):
+  if x ==1:
+    return 1
+  else:
+  	return x*factorial(x-1)
+```
+
+
+
+## Exercise
+Write a function called censor that takes two strings, text and word, as input. It should return the text with the word you chose replaced with asterisks. For example:
+
+> censor("this hack is wack hack", "hack")
+> "this **** is wack ****"
+
+```{python}
+import string
+def censor(text, word):
+  text2 = []
+  for w in text.split(" "):
+    if w==word:
+    	text2.append("*"*len(word))
+    else:
+      text2.append(w)
+  return " ".join(text2)  
+      
+print censor("hey hey hey","hey")
+```
+
+*Exercise*
++ Define a function called count that has two arguments called sequence and item.
+
++ Return the number of times the item occurs in the list.
+
++ For example: count([1, 2, 1, 1], 1) should return 3 (because 1 appears 3 times in the list).
+
+  - There is a list method in Python that you can use for this, but you should do it the long way for practice.
+  - Your function should return an integer.
+  -  The item you input may be an integer, string, float, or even another list!
+
+
+```{python}
+def count(sequence, item):
+  count=0
+  if type(item)==list:
+    for i in item:
+      for s in sequence:
+        if i==s:
+          count+=1
+  else:
+    for s in sequence:
+      if s == item:
+        count+=1
+        
+  return count
+
+
+print count([1,2,1,1],1)
+print count([1,2,1,1],[1,2])
+
+print count(['B','h', "a", "r", "a", "t", "i" ],"a")
+print count(['B','h', "a", "r", "a", "t", "i" ],["K","a","n","h","u"])
+```
+
+*Exercise*
++ Write a function remove_duplicates that takes in a list and removes elements of the list that are the same.
+
++ For example: remove_duplicates([1, 1, 2, 2]) should return [1, 2].
+
+    - Don't remove every occurrence, since you need to keep a single occurrence of a number.
+    - The order in which you present your output does not matter. So returning [1, 2, 3] is the same as returning [3, 1, 2]
+    
+```{python}
+def remove_duplicates(dat):
+  dat2=[]
+  for i in dat:
+    if not i in dat2:
+      dat2.append(i)
+  return dat2
+
+print remove_duplicates([1, 1, 2, 2])
+```
+
+
+## Calculate median 
+
+```{python}
+def median(val):
+  median=0
+  if len(val)==1:
+    return val[0]
+  sorted_val = sorted(val)
+  if len(val)%2!=0:
+    return sorted_val[int(len(val)/2)]
+  else:
+    return float(sorted_val[int(len(val)/2)-1]+sorted_val[int(len(val)/2)])/2
+  
+print "Median = ", median([4, 5, 5, 4])
+```
+
+
+## variance and SD
+```{python}
+grades = [100, 100, 90, 40, 80, 100, 85, 70, 90, 65, 90, 85, 50.5]
+
+def print_grades(grades_input):
+  for grade in grades_input:
+    print grade
+
+def grades_sum(scores):
+  total = 0
+  for score in scores: 
+    total += score
+  return total
+    
+def grades_average(grades_input):
+  sum_of_grades = grades_sum(grades_input)
+  average = sum_of_grades / float(len(grades_input))
+  return average
+
+def grades_variance(scores):
+  variance =0
+  average = grades_average(scores)
+  for i in scores:
+    variance += (average - i)**2
+  return variance/len(scores)
+  
+#print grades_variance(grades)
+
+def grades_std_deviation(variance):
+  return variance **0.5
+
+
+variance =grades_variance(grades)
+
+#print grades_std_deviation(variance)
+
+
+print "All grades: ",
+for i in grades:
+  print i,
+
+print "sum of grades", grades_sum(grades)
+print "average grade", grades_average(grades)
+print "variance", variance
+print "standard deviation ", grades_std_deviation(variance)
+```
+
+```{r}
+a = c(100, 100, 90, 40, 80, 100, 85, 70, 90, 65, 90, 85, 50.5)
+
+mean(a)
+var(a)
+sd(a)
+```
+
+# Advanced topics
+
+## Iterators for Dictionaries
+
++  dict.items(): returns an array of tuples with each tuple consisting of a key/value pair from the dictionary,  NOT in any specific order.
+
+```{python}
+d = {
+  "Name": "Guido",
+  "Age": 56,
+  "BDFL": True
+}
+print d.items()
+# => [('BDFL', True), ('Age', 56), ('Name', 'Guido')]
+
+```
+
+
++ dict.keys() and values()
+
+    - The .keys() method returns a list of the dictionary's keys, and
+    - The .values() method returns a list of the dictionary's values.
++ The 'in' Operator
+
+```{python}
+d = { 
+  "name": "Eric",
+  "age": 26
+}
+
+for key in d:
+  print key, d[key],
+
+```
+
++ Building Lists
+
++ build a list of the numbers from 0 to 50 (inclusive)
+
+> my_list = range(51) 
+
+But what if we wanted to generate a list according to some logic-for example, a list of all the even numbers from 0 to 50?  
+
+Python's answer to this is the list comprehension. List comprehensions are a powerful way to generate lists using the for/in and if keywords  
+
+```{python}
+evens_to_50 = [i for i in range(51) if i % 2 == 0]
+print evens_to_50
+```
+
+## List Comprehension Syntax
+
+> new_list = [x for x in range(1, 6)]
+This will create a new_list populated by the numbers one to five. 
+
+> doubles = [x * 2 for x in range(1, 6)]
+ those numbers doubled, 
+ 
+> doubles_by_3 = [x * 2 for x in range(1, 6) if (x * 2) % 3 == 0]
+ doubled numbers that are evenly divisible by three:
+ Your even_squares list should include the squares of the even numbers between 1 to 11. Your list should start [4, 16, 36...] and go from there
+ 
+> # Complete the following line. Use the line above for help.
+> even_squares = [x ** 2 for x in range(1, 11) if (x ** 2) % 2 == 0]
+
+*Exercise*
+Use a list comprehension to create a list, cubes_by_four.  
+
+The comprehension should consist of the cubes of the numbers 1 through 10 only if the cube is evenly divisible by four.  
+
+Finally, print that list to the console.  
+
+```{python}
+cubes_by_four = [x**3 for x in range(1,11) if (x**3) % 4 ==0]
+
+print cubes_by_four
+
+
+```
+
+
+##  List Slicing Syntax
+List slicing allows us to access elements of a list in a concise manner. The syntax looks like this:
+
+> [start:end:stride]
+
+Where start describes where the slice starts (inclusive), end is where it ends (exclusive), and stride describes the space between items in the sliced list. For example, a stride of 2 would select every other item from the original list to place in the sliced list.  
+```{python}
+l = [i ** 2 for i in range(1, 11)]
+# Should be [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
+print l[2:9:2]
+```
+
+
+
+## Omitting Indices  
+If you don't pass a particular index to the list slice, Python will pick a default. 
+
+```{python}
+to_five = ['A', 'B', 'C', 'D', 'E']
+
+print to_five[3:]
+# prints ['D', 'E'] 
+
+print to_five[:2]
+# prints ['A', 'B']
+
+print to_five[::2]
+# print ['A', 'C', 'E']
+# default stride is 1.
+
+
+# Use list slicing to print out every odd element of my_list from start to finish.
+my_list = range(1, 11) # List of numbers 1 - 10
+
+# Add your code below!
+print my_list[::2]
+```
+
+## Reversing a List 
+A negative stride progresses through the list from right to left.
+
+```{python}
+letters = ['A', 'B', 'C', 'D', 'E']
+print letters[::-1]
+```
+
+
+## more examples
+
+Create a list, to_21, that's just the numbers from 1 to 21, inclusive.  
+
+Create a second list, odds, that contains only the odd numbers in the to_21 list (1, 3, 5, and so on). Use list slicing for this one instead of a list comprehension.  
+
+Finally, create a third list, middle_third, that's equal to the middle third of to_21, from 8 to 14, inclusive.  
+
+
+```{python}
+to_21 = range(1,22)
+print to_21
+
+## odds using list comprehension
+print [x for x in to_21 if (x%2)!=0]
+
+odds = to_21[::2]
+
+middle_third = to_21[7:14]
+print middle_third
+```
+
+## Anonymous functions
+
+- One of the more powerful aspects of Python is that it allows for a style of programming called functional programming, which means that you're allowed to pass functions around just as if they were variables or values. Sometimes we take this for granted, but not all languages allow this!
+
+Check out the code at the right. See the lambda bit. 
+
+- Anonymous function or lambda expression are single line functions, that are useful for functions that will be used only once. 
+
+> lambda x: x % 3 == 0
+
+Is the same as
+
+> def by_three(x):
+>  return x % 3 == 0
+
+
+- When we pass the lambda to **filter**, filter uses the lambda to determine what to filter, and the second argument (my_list, which is just the numbers 0 - 15) is the list it does the filtering on.
+
+```{python}
+my_list = range(16)
+print filter(lambda x: x % 3 == 0, my_list)
+```
+
+
+
+```{python}
+f = lambda : "Hello"
+print f()
+
+# eqivalent to single line functions in R
+#f = function(x) { x + 1 }
+#print f(3)
+
+```
+```{python}
+res = lambda x,y : [ z**2 + z**4 + z  for z in [x**2+5]][0]
+print res(2,3)
+
+## in List Comprehension
+fs = [(lambda n,i=i: i + n) for i in range(10)]
+```
+
++ Lambdas are useful when you need a quick function to do some work for you.
+
++ If you plan on creating a function you'll use over and over, you're better off using def and giving that function a name.
+
+
+
+```{python}
+my_list = range(16)
+filter(lambda x: x % 3 == 0, my_list)
+
+### Fill in the first part of the filter function with a lambda. The lambda should ensure that only "Python" is returned by the filter.
+languages = ["HTML", "JavaScript", "Python", "Ruby"]
+
+# Add arguments to the filter()
+print filter(lambda x: x=="Python", languages)
+```
+
+*Exercise* 
+Create a list, squares, that consists of the squares of the numbers 1 to 10. A list comprehension could be useful here!  
+
+Use filter() and a lambda expression to print out only the squares that are between 30 and 70 (inclusive).
+
+
+```{python}
+squares=[x**2 for x in range(1,11)]
+#print squares
+print filter(lambda x : x >=30 and x<=70,squares )
+
+## Iterating Over Dictionaries
+```
+
+## Slicing strings 
+
+* The string in the editor is garbled in two ways:
+
+    + Our message is backwards.
+    + The letter we want is every other letter.  
+
+Use list slicing to extract the message and save it to a variable called message.
+
+```{python}
+garbled = "!XeXgXaXsXsXeXmX XtXeXrXcXeXsX XeXhXtX XmXaX XI"
+message= garbled[::-2]
+
+print message
+```
+
+*Exercise*
+Create a new variable called message.
+
+Set it to the result of calling filter() with the appropriate lambda that will filter out the "X"s. The second argument will be garbled.
+
+Finally, print your message to the console.
+
+```{python}
+garbled = "IXXX aXXmX aXXXnXoXXXXXtXhXeXXXXrX sXXXXeXcXXXrXeXt mXXeXsXXXsXaXXXXXXgXeX!XX"
+
+message= filter(lambda x: x!="X" , garbled)
+print message
+```
+
+
+
+
+
+
+
+
+
+
+# Introduction to Bitwise Operators
+
++ Bitwise operations might seem a little esoteric and tricky at first, but you'll get the hang of them pretty quickly.  
+
++ Bitwise operations are operations that directly manipulate bits. In all computers, numbers are represented with bits, a series of zeros and ones. In fact, pretty much everything in a computer is represented by bits. This course will introduce you to the basic bitwise operations and then show you what you can do with them.  
+
++ Bitwise operators often tend to puzzle and mystify new programmers, so don't worry if you are a little bit confused at first. To be honest, you aren't really going to see bitwise operators in everyday programming. However, they do pop up from time to time, and when they do, you should have a general idea of what is going on.   
+
+
+```{python}
+## basic examples 
+print 5 >> 4  # Right Shift
+print 5 << 1  # Left Shift
+print 8 & 5   # Bitwise AND
+print 9 | 4   # Bitwise OR
+print 12 ^ 42 # Bitwise XOR
+print ~88     # Bitwise NOT
+
+
+```
+## The Base 2 Number System
+
+When we count, we usually do it in *base 10*. That means that *each place* in a number can hold one of ten values, *0-9*. In binary we count in *base two*, where each place can hold one of two values: 0 or 1. The counting pattern is the same as in base 10 except when you carry over to a new column, you have to carry over every time a place goes higher than one (as opposed to higher than 9 in base 10).  
+
+For example, *the numbers one and zero are the same in base 10 and base 2*. But in base 2, once you get to the number 2 you have to carry over the one, resulting in the representation "10". Adding one again results in "11" (3) and adding one again results in "100" (4).  
+
+Contrary to counting in base 10, where *each decimal place represents a power of 10*, each place in a binary number represents *a power of two (or a bit)*. The rightmost bit is the 1's bit (two to the zero power), the next bit is the 2's bit (two to the first), then 4, 8, 16, 32, and so on.  
+
+The binary number '1010' is 10 in base 2 because the 8's bit and the 2's bit are "on":  
+*
+8's bit  4's bit  2's bit  1's bit
+    1       0       1      0 
+    1X2^3   2X2^2   1X2^1   0X2^0 
+    8   +   0    +  2   +  0  = 10 
+*
+In Python, you can write numbers in binary format by starting the number with 0b. When doing so, the numbers can be operated on like any other number!
+
+```{python}
+print 0b1,    #1
+print 0b10,   #2
+print 0b11,   #3
+print 0b100,  #4
+print 0b101,  #5
+print 0b110,  #6
+print 0b111   #7
+print "******"
+print 0b1 + 0b11
+print 0b11 * 0b11
+
+print "***"
+
+
+
+one = 0b1
+two = 0b10
+three = 0b11
+four = 0b100
+five = 0b101
+six = 0b110
+seven = 0b111
+eight = 0b1000
+nine = 0b1001
+ten = 0b1010
+eleven = 0b1011
+twelve = 0b1100
+```
+
+
+## The bin() Function
+In order to print a number in its binary representation ( base 2), you can use the bin() function. bin() takes an integer as input and returns the binary representation of that integer in a string.     
+Keep in mind that after using the bin function, you can no longer operate on the value like a number.  
+You can also represent numbers in base 8 and base 16 using the oct() and hex() functions.  
+
+```{python}
+for i in range(1,6):
+  print bin(i)
+```
+
+## The int() function
+int() function can turn non-integer input into an integer. It has an optional second parameter.
+
+```{python}
+int("42")
+# ==> 42
+
+int("110", 2)
+# ==> 6
+
+```
+When given a string containing a number and the base that number is in, the function will return the value of that number converted to base ten.
+
+```{python}
+print int("1",2)
+print int("10",2)
+print int("111",2)
+print int("0b100",2)
+print int(bin(5),2)
+# Print out the decimal equivalent of the binary 11001001.
+print int("0b11001001",2)
+
+
+```
+
+## Slide to the Left! Slide to the Right!
+left and right shift bitwise operators:  These operators work by shifting the bits of a number over by a designated number of slots.  
+The block below shows how these operators work on the bit level. Note that in the diagram, the shift is always a positive integer:
+
+--  Left Bit Shift (<<)    
+0b000001 << 2 == 0b000100 (1 << 2 = 4)  
+0b000101 << 3 == 0b101000 (5 << 3 = 40)        
+
+-- Right Bit Shift (>>)
+0b0010100 >> 3 == 0b000010 (20 >> 3 = 2)  
+0b0000010 >> 2 == 0b000000 (2 >> 2 = 0)  
+
+Shift operations are similar to rounding down after dividing and multiplying by 2 (respectively) for every time you shift, but it's often easier just to think of it as shifting all the 1s and 0s left or right by the specified number of slots.  
+
+```{python}
+shift_right = 0b1100
+shift_left = 0b1
+print int("0b1100",2)
+print int("1",2)
+# Your code here!
+shift_right = shift_right >>2 # 0b11
+shift_left = shift_left << 2 # 0b100
+
+print bin(shift_right)
+print bin(shift_left)
+print int("0b11",2)
+print int("0b100",2)
+```
+
+## A BIT of This AND That
+
+The bitwise AND (&) operator compares two numbers on a bit level and returns a number where the bits of that number are turned on if the corresponding bits of both numbers are 1. For example:
+
+     a:   00101010   42  
+     b:   00001111   15         
+===================  
+ a & b:   00001010   10  
+ 
+print out the result of calling bin() on 0b1110 & 0b101.
+
+See if you can guess what the output will be!
+
+```{python}
+print int("0b1110", 2)
+print int("0b1010",2)
+
+print bin(0b1110 & 0b101)
+print bin(4)
+```
+
+
+
+## A BIT of This OR That
+
+The bitwise OR (|) operator compares two numbers on a bit level and returns a number where the bits of that number are turned on if either of the corresponding bits of either number are 1. For example:
+
+   a:  00101010  42  
+    b:  00001111  15        
+================  
+a | b:  00101111  47  
+
+Note that the bitwise | operator can only create results that are greater than or equal to the larger of the two integer inputs.
+
+So remember, for every given bit in a and b:  
+
+0 | 0 = 0  
+0 | 1 = 1  
+1 | 0 = 1  
+1 | 1 = 1  
+
+Meaning  
+
+110 (6) | 1010 (10) = 1110 (14)  
+
+## XOR using ^ symbol
+
+## NOT using ~
+
+```{python}
+print ~1
+print ~2
+print ~3
+print ~42
+print ~123
+```
+
+## The Man Behind the Bit Mask 
+
+```{python}
+num = 0b1100
+def check_bit4(input):
+  mask = 0b0010
+  desired = input & mask
+  if desired > 0:
+    return "on"
+  else:
+    return "off"
+
+print check_bit4(num)
+
+
+
+```
+
+*bit mask* is just a variable that aids you with bitwise operations. A bit mask can help you turn specific bits on, turn others off, or just collect data from an integer about which bits are on or off.
+
+```{python}
+num  = 0b1100
+mask = 0b0100
+desired = num & mask
+if desired > 0:
+  print "Bit was on"
+```
+In the example above, we want to see **if the third bit** from the *right* is on.  
+First, we first create a variable num containing the number 12, or 0b1100.
+Next, we create a mask with **the third bit on**.
+Then, we use a bitwise-and operation to see if the third bit from the right of num is on.
+If desired is greater than zero, then the third bit of num must have been one.  
+
+```{python}
+a = 0b10111011
+
+mask = 0b100
+desired = a | mask
+print bin(desired)
+```
+
+## Just Flip Out
+
+Using the XOR (^) operator is very useful for flipping bits. Using ^ on a bit with the number one will return a result where that bit is flipped.   
+
+For example, let's say I want to flip all of the bits in a. I might do this:  
+
+a = 0b110 # 6  
+mask = 0b111 # 7  
+desired =  a ^ mask # 0b1  
+
+
+In the editor is the 8 bit variable a. Use a bitmask and the value a in order to achieve a result where all of the bits in a are flipped. Be sure to print your answer as a bin() string!
+```{python}
+a = 0b11101110
+mask = 0b11111111
+desired =  a ^ mask        
+if desired >0:
+  print bin(desired)
+```
+
+## Slip and Slide
+Finally, you can also use the left shift (<<) and right shift (>>) operators to slide masks into place.
+
+```{python}
+a = 0b101 
+# Tenth bit mask
+mask = (0b1 << 9)  # One less than ten 
+desired = a ^ mask
+print desired
+```
+
+Let's say that I want to turn on the 10th bit from the right of the integer a.  
+
+Instead of writing out the entire number, we slide a bit over using the << operator.  
+
+We use 9 because we only need to slide the mask nine places over from the first bit to reach the tenth bit.  
+
+Define a function called flip_bit that takes the inputs (number, n).
+
+Flip the nth bit (with the ones bit being the first bit) and store it in result.
+
+Return the result of calling bin(result).
+
+```{python}
+def flip_bit(number, n):
+  mask = (0b1  << n-1)
+  return bin(number ^ mask)
+
+
+print flip_bit(0b101 , 2)
+```
+
+
+# Class and objects in Python 
+Python is an object-oriented programming language, which means it manipulates programming constructs called objects. You can think of an object as a single data structure that contains data as well as functions; the functions of an object are called its methods. For example, any time you call  
+
+> len("Eric")  
+
+Python is checking to see whether the string object you passed it has a length, and if it does, it returns the value associated with that **attribute**. When you call  
+
+> my_dict.items()  
+
+Python checks to see if my_dict has an items() **method** (which all dictionaries have) and executes that method if it finds it.  
+
+But what makes "Eric" a string and my_dict a dictionary? The fact that they're instances of the str and dict classes, respectively. **A class is just a way of organizing and producing objects with similar attributes and methods.**  
+
+
+Example:
+```{python}
+class Fruit(object):
+  """A class that makes various tasty fruits."""
+  def __init__(self, name, color, flavor, poisonous):
+    self.name = name
+    self.color = color
+    self.flavor = flavor
+    self.poisonous = poisonous
+
+  def description(self):
+    print "I'm a %s %s and I taste %s." % (self.color, self.name, self.flavor)
+
+  def is_edible(self):
+    if not self.poisonous:
+      print "Yep! I'm edible."
+    else:
+      print "Don't eat me! I am super poisonous."
+
+lemon = Fruit("lemon", "yellow", "sour", False)
+
+lemon.description()
+lemon.is_edible()
+
+```
+
+## Class Syntax
+A basic class consists only of the class keyword, the name of the **class**, and the class from which the new class inherits in parentheses. (We'll get to **inheritance** soon.) For now, our classes will inherit from the object class, like so:  
+
+> class NewClass(object):
+>  # Class magic here  
+
+This gives them the powers and abilities of a Python object. By convention, user-defined Python class names start with a capital letter.  
+
+Create a class called Animal in the editor. For now, in the body of your class, use the pass keyword. (pass doesn't do anything, but it's useful as a placeholder in areas of your code where Python expects an expression.)
+
+
+```{python}
+class Animal(object):
+  pass 
+```
+
+Now lets add other parts of the class by replacing pass keyword.  
+1.* __init__()* This function is required for classes, and it's used to initialize the objects it creates. __init__() always takes at least one argument, **self**, that refers to the object being created. This is a Python convention; there's nothing magic about the word self and it is very common and it enables other people to understand your code.
+
+You can think of __init__() as the function that "boots up" each object the class creates.  
+
+```{python}
+class Animal(object):
+  def __init__(self):
+    pass
+```
+
+2.  *instantiate *: 
+
++ Let's do two things in the editor:
+
+  -Pass __init__() a second parameter, name.
+  - In the body of __init__(), let the function know that name refers to the created object's name by typing self.name = name. (This will become crystal clear in the next section.)
+
+```{python}
+class Animal(object):
+  def __init__(self, name):
+    self.name = name
+    pass
+```
+
+We can access attributes of our objects using dot notation. Here's how it works:
+
+```{python}
+class Square(object):
+  def __init__(self):
+    self.sides = 4
+
+my_shape = Square()
+print my_shape.sides
+```
+
+in our exercise :
+Outside the Animal class definition, create a variable named zebra and set it equal to Animal("Jeffrey").
+
+Then print out zebra's name.
+```{python}
+class Animal(object):
+  def __init__(self, name):
+    self.name = name
+    pass
+  
+  
+zebra = Animal("Jeffrey")
+print zebra.name
+```
+
+## more into __init__() and self
+
+you can think of __init__() as the method that "boots up" a class' instance object: the init bit is short for "initialize." 
+
+
+The first argument __init__() gets is used to refer to the instance object, and by convention, that argument is called self.  
+If you add additional arguments-for instance, a name and age for your animal-setting each of those equal to self.name and self.age in the body of __init__() will make it so that when you create an instance object of your Animal class, you need to give each instance a name and an age, and those will be associated with the particular instance you create.
+
+## Class Scope
+
+The scope of a variable is the context in which it's visible to the program. 
+
+It may surprise you to learn that not all variables are accessible to all parts of a Python program at all times. When dealing with classes, you can have variables that are available everywhere (**global variables**), variables that are only available to members of a certain class (**member variables**), and variables that are only available to particular instances of a class (**instance variables**). 
+
+The same goes for functions: some are available everywhere, some are only available to members of a certain class, and still others are only available to particular instance objects.  
+
+
+
+## A Methodical Approach
+
+When a class has its own functions, those functions are called methods. You've already seen one such method: __init__()
+
+1. Add a method, description, to your Animal class. Using two separate print statements, it should print out the name and age of the animal it's called on. Then, create an instance of Animal, hippo (with whatever name and age you like), and call its description method.  
+Remember to pass self as an argument to description. Otherwise, printing self.name and self.age won't work, since Python won't know which self (that is, which object) you're talking about!
+
+```{python}
+class Animal(object):
+  """Makes cute animals."""
+## This attribute is preset for all objects
+  is_alive = True
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+  # Add your method here!
+  def description(self):
+    print self.name
+    print self.age
+   
+   
+   
+  hippo = Animal("Alex", 2)
+  hippo.description()
+
+##-
+class Animal(object):
+  """Makes cute animals."""
+  is_alive = True
+  health ="good"
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+  # Add your method here!
+  def description(self):
+    print self.name
+    print self.age
+   
+hippo = Animal("Anderson", 36)
+hippo.description()
+sloth =Animal("Sloth1", 32)
+ocelot = Animal("Nel", 2)
+print hippo.health
+print sloth.health
+print ocelot.health
+
+```
+
+
+
+```{python}
+class ShoppingCart(object):
+  """Creates shopping cart objects
+  for users of our fine website."""
+  items_in_cart = {}
+  def __init__(self, customer_name):
+    self.customer_name = customer_name
+
+  def add_item(self, product, price):
+    """Add product to the cart."""
+    if not product in self.items_in_cart:
+      self.items_in_cart[product] = price
+      print product + " added."
+    else:
+      print product + " is already in the cart."
+
+  def remove_item(self, product):
+    """Remove product from the cart."""
+    if product in self.items_in_cart:
+      del self.items_in_cart[product]
+      print product + " removed."
+    else:
+      print product + " is not in the cart."
+ 
+my_cart = ShoppingCart("Eric")
+my_cart.add_item("Ukelele", 10)
+```
+
+## Warning: Here Be Dragons
+Inheritance is the process by which one class takes on the attributes and methods of another, and it's used to express an is-a relationship. For example, a Panda is a bear, so a Panda class could inherit from a Bear class.  
+However, a Toyota is not a Tractor, so it shouldn't inherit from the Tractor class (even if they have a lot of attributes and methods in common). Instead, both Toyota and Tractor could ultimately inherit from the same Vehicle class. 
+
+Example: Check out the code in the editor. We've defined a class, Customer, as well as a ReturningCustomer class that inherits from Customer. Note that we don't define the display_cart method in the body of ReturningCustomer, but it will still have access to that method via inheritance. Click Run to see for yourself! 
+
+```{python}
+class Customer(object):
+    """Produces objects that represent customers."""
+    def __init__(self, customer_id):
+        self.customer_id = customer_id
+
+    def display_cart(self):
+        print "I'm a string that stands in for the contents of your shopping cart!"
+
+class ReturningCustomer(Customer):
+    """For customers of the repeat variety."""
+    def display_order_history(self):
+        print "I'm a string that stands in for your order history!"
+
+monty_python = ReturningCustomer("ID: 12345")
+monty_python.display_cart()
+monty_python.display_order_history()
+```
+
+### Inheritance Syntax
+
+class DerivedClass(BaseClass):
+  # code goes here
+
+where DerivedClass is the new class you're making and BaseClass is the class from which that new class inherits.
+
+for a derived class __init__ is not essential unless we need some extra attribute to pass.
+
+
+```{python}
+
+class Shape(object):
+    """Makes shapes!"""
+    def __init__(self, number_of_sides):
+        self.number_of_sides = number_of_sides
+
+# Add your Triangle class below!
+class Triangle(Shape):
+  def __init__(self, side1, side2,side3):
+    self.side1 = side1
+    self.side2 = side2
+    self.side3 = side3
+
+```
+
+## Override! :
+
+Sometimes you'll want one class that inherits from another to not only take on the methods and attributes of its parent, but to override one or more of them. 
+
+```{python}
+class Employee(object):
+  def __init__(self, name):
+    self.name = name
+  def greet(self, other):
+    print "Hello, %s" % other.name
+
+class CEO(Employee):
+  def greet(self, other):
+    print "Get back to work, %s!" % other.name
+
+ceo = CEO("Emily")
+emp = Employee("Steve")
+emp.greet(ceo)
+# Hello, Emily
+ceo.greet(emp)
+# Get back to work, Steve!
+```
+Rather than have a separate greet_underling method for our CEO, 
+we override (or re-create) the greet method on top of the
+ base Employee.greet method. 
+This way, we don't need to know what type of Employee we have before 
+we greet another Employee. 
+
+*Exercise* 
+
+Create a new class, PartTimeEmployee, that inherits from Employee.
+
+Give your derived class a calculate_wage method that overrides Employee's. It should take self and hours as arguments.
+
+Because PartTimeEmployee.calculate_wage overrides Employee.calculate_wage, it still needs to set self.hours = hours.
+
+It should return the part-time employee's number of hours worked multiplied by 12.00 (that is, they get $12.00 per hour instead of $20.00).
+
+```{python}
+
+class Employee(object):
+    """Models real-life employees!"""
+    def __init__(self, employee_name):
+        self.employee_name = employee_name
+
+    def calculate_wage(self, hours):
+        self.hours = hours
+        return hours * 20.00
+
+# Add your code below!
+class PartTimeEmployee(Employee):
+  def calculate_wage(self, hours):
+        self.hours = hours
+        return hours * 12.00
+
+```
+
+Sometimes you'll be working with a derived class (or subclass) and realize that you've overwritten a method or attribute defined in that class' base class (also called a parent or superclass) that you actually need. Have no fear! You can directly access the attributes or methods of a superclass with Python's built-in super call.
+
+The syntax looks like this:
+
+> class Derived(Base):
+>  def m(self):
+>    return super(Derived, self).m()
+
+Where m() is a method from the base class.
+
+> super (OBJECT_CLASS, self) . Method()
+
+
++ First, inside your PartTimeEmployee class:
+
++    Add a new method called full_time_wage with the arguments self and hours.
+ +   That method should return the result of a super call to the calculate_wage method of PartTimeEmployee's parent class. Use the example above for help.  
+
+Then, after your class:
+
+    + Create an instance of the PartTimeEmployee class called milton. Don't forget to give it a name.
+    Finally, print out the result of calling his full_time_wage method. You should see his wage printed out at $20.00 per hour! (That is, for 10 hours, the result should be 200.00.)
+
+```{python}
+class Employee(object):
+  """Models real-life employees!"""
+  def __init__(self, employee_name):
+    self.employee_name = employee_name
+
+  def calculate_wage(self, hours):
+    self.hours = hours
+    return hours * 20.00
+
+# Add your code below!
+class PartTimeEmployee(Employee):
+  def calculate_wage(self, hours):
+    self.hours = hours
+    return hours * 12.00
+ 
+  def full_time_wage(self, hours):
+    return super(PartTimeEmployee, self).calculate_wage(hours)
+
+milton = PartTimeEmployee('Milton')
+print milton.full_time_wage(10)
+```
+
+
+## Exercise: Triangle
+```{python}
+class Triangle(object):
+  number_of_sides = 3
+  def __init__(self, angle1, angle2,angle3):
+    self.angle1 = angle1
+    self.angle2 = angle2
+    self.angle3 = angle3
+   
+  def check_angles(self):
+    if  self.angle1+self.angle2+ self.angle3 ==180:
+      return True
+    else:
+      return False
+  
+class Equilateral(Triangle):
+  angle =60
+  def __init__(self):
+    self.angle1 = self.angle
+    self.angle2 = self.angle
+    self.angle3 = self.angle
+   
+   
+my_triangle = Triangle(90, 30, 60)
+print my_triangle.number_of_sides
+print my_triangle.check_angles()
+
+
+## Extra: Make your own Car and learn how to driveCar()!
+class Car(object):
+  condition = "new"
+  def __init__(self, model, color, mpg):
+    self.model = model
+    self.color = color
+    self.mpg   = mpg
+  def display_car(self):
+    return "This is a %s %s with %s MPG." %(self.color, self.model, str(self.mpg))
+  def drive_car(self):
+    self.condition="used"
+  
+ 
+my_car = Car("DeLorean", "silver", 88)
+
+print my_car.condition
+my_car.drive_car()
+print my_car.condition
+```
+
+## inheritance concept
+
+```{python}
+
+class Car(object):
+  condition = "new"
+  def __init__(self, model, color, mpg):
+    self.model = model
+    self.color = color
+    self.mpg   = mpg
+  
+  def display_car(self):
+    print "This is a %s %s with %s MPG." % (self.color, self.model, str(self.mpg))
+   
+  def drive_car(self):
+    self.condition = "used"
+   
+class ElectricCar(Car):
+  def __init__(self, model, color, mpg, battery_type):
+    self.model = model
+    self.color = color
+    self.mpg   = mpg
+    self.battery_type = battery_type
+
+my_car = ElectricCar("DeLorean", "silver", 88, "molten salt")
+
+```
+
+```{python}
+
+class Car(object):
+  condition = "new"
+  def __init__(self, model, color, mpg):
+    self.model = model
+    self.color = color
+    self.mpg   = mpg
+  
+  def display_car(self):
+    print "This is a %s %s with %s MPG." % (self.color, self.model, str(self.mpg))
+   
+  def drive_car(self):
+    self.condition = "used"
+   
+class ElectricCar(Car):
+  def __init__(self, model, color, mpg, battery_type):
+    self.model = model
+    self.color = color
+    self.mpg   = mpg
+    self.battery_type = battery_type
+   
+  def drive_car(self):
+    self.condition ="like new"
+
+my_car = ElectricCar("DeLorean", "silver", 88, "molten salt")
+print my_car.condition
+my_car.drive_car()
+
+print my_car.condition
+
+```
+
+## Building useful classes
+
+Usually, classes are most useful for holding and accessing abstract collections of data.
+
+One useful class method to override is the built-in __repr__() method, which is short for representation; by providing a return value in this method, we can tell Python how to represent an object of our class (for instance, when using a print statement).
+
+
+```{python}
+
+class Point3D(object):
+  def __init__(self, x,y,z):
+    self.x=x
+    self.y=y
+    self.z=z
+  def __repr__(self):
+    return "(%d, %d, %d)" % (self.x, self.y, self.z)
+ 
+my_point = Point3D(1,2,3)
+
+print my_point
+
+```
+
+
+
+# File handling
+if you want to read information from a file on your computer, and/or write that information to another file?
+
+This process is called file I/O (the "I/O" stands for "input/output"), and Python has a number of built-in functions that handle this for you.
+
+```{python}
+
+my_list = [i ** 2 for i in range(1, 11)]
+# Generates a list of squares of the numbers 1 - 10
+
+f = open("output.txt", "w")
+
+for item in my_list:
+  f.write(str(item) + "\n")
+
+f.close()
+
+```
+
+## The open() Function
+
+The first code that you saw executed in the previous exercise was this:
+
+> f = open("output.txt", "w")
+
+This told Python to open output.txt in "w" mode ("w" stands for "write"). We stored the result of this operation in a file object, f.
+
+You can open files in any of the following modes:
+
+    write-only mode ("w")
+    read-only mode ("r")
+    read and write mode ("r+")
+    append mode ("a"), which adds any new data you write to the file to the end of the file.
+
+Our goal in this exercise will be to write each element of that list to a file called output.txt. The output.txt file that you write to will be created in your current folder - for simplicity, the folder has been hidden. output.txt will list each number on its own line.
+
+We can write to a Python file like so:
+
+my_file.write("Data to be written")
+
+The .write() method takes a string argument, so we'll need to do a few things here:
+
+You must close the file. You do this simply by calling my_file.close() (we did this for you in the last exercise). If you don't close your file, Python won't write to it properly. From here on out, you gotta close your files!
+
+
+```{python}
+
+my_list = [i ** 2 for i in range(1, 11)]
+
+my_file = open("output.txt", "w")
+
+# Add your code below!
+for i in my_list:
+  my_file.write(str(i) +"\n")
+ 
+my_file.close()
+
+
+
+my_file = open("output.txt", "r")
+
+print my_file.read()
+
+my_file.close()
+
+
+my_file = open("text.txt", "r")
+
+print my_file.readline()
+print my_file.readline()
+print my_file.readline()
+
+my_file.close()
+
+
+```
+
+
+## PSA: Buffering Data
+
+During the I/O process, data is buffered: this means that it is held in a temporary location before being written to the file.
+
+Python doesn't flush the buffer-that is, write data to the file-until it's sure you're done writing. One way to do this is to close the file. If you write to a file without closing, the data won't make it to the target file.
+
+
+    Add a write_file.close() call after writing to the file but before reading it.
+    Add a read_file.close() call after the print read_file.read() line
+
+```{python}
+
+# Use a file handler to open a file for writing
+write_file = open("text.txt", "w")
+
+# Open the file for reading
+read_file = open("text.txt", "r")
+
+# Write to the file
+write_file.write("Not closing files is VERY BAD.")
+write_file.close()
+
+
+
+# Try to read from the file
+print read_file.read()
+read_file.close()
+
+```
+
+##  The 'with' and 'as' Keywords
+
+You may not know this, but file objects contain a special pair of built-in methods: __enter__() and __exit__(). The details aren't important, but what is important is that when a file object's __exit__() method is invoked, it automatically closes the file. How do we invoke this method? With with and as.
+
+The syntax looks like this:
+
+with open("file", "mode") as variable:
+  # Read or write to the file
+
+
+
+Check out the example in the editor. Note that we don't explicitly close() our file, and remember that if we don't close a file, our data will get stuck in the buffer. Click Run!
+
+Success! is written to a file called text.txt.
+
+```{python}
+with open("text.txt", "w") as textfile:
+  textfile.write("Success!")
+
+with open("text.txt","w") as my_file:
+  my_file.write("I love you Bharati!!")
+```
+## Check file closed status:
+By checking file_object.closed, we'll know whether our file is closed and can call close() on it if it's still open.
+
+```{python}
+with open("text.txt","w") as my_file:
+  my_file.write("I love you Bharati!!")
+ 
+if not my_file.closed:
+  my_file.close()
+
+print my_file.closed
+```
+
+
+
+# Regular expression 
+
++ regular expression module is called "re"
++ re.search(): for searching a patterns, only once. 
++ re.findall(pattern, string, flags=0): Return all non-overlapping matches of pattern in string, as a list of strings. The string is scanned left-to-right, and matches are returned in the order found.
++ Meta-cards:
+  - wild card: .
+  - space: \s+
+  - ...
+  
+
+
+```{python}
+import re
+
+text = 'This is a piiig'
+def Find_pat(pat, text):
+  match = re.search(pat,text)
+  if match:
+    return match.group()
+  else:
+    return "Match not found!!"
+
+print Find_pat('iig', text)
+
+
+
+
+```
+
+
+
+
+
+
+# Advanced Functions to study
++ map()
++ string.sort() vs sorted()
