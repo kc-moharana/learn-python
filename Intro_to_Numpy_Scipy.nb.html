@@ -270,9 +270,304 @@ div.tocify {
 
 
 <!-- rnb-text-begin -->
+<div id="numerical-python-numpy" class="section level1">
+<h1>Numerical Python : NumPy</h1>
+<ul>
+<li>Open-source add-on modules to Python<br />
+</li>
+<li>contains mathematical and numerical routines in pre-compiled and fast functions.</li>
+<li>speed can compete with MatLab</li>
+<li>Some useful algorithms inclue : minimization, FT, regression etc.</li>
+<li>Download from : git clone <a href="https://github.com/numpy/numpy.git" class="uri">https://github.com/numpy/numpy.git</a> numpy</li>
+</ul>
+</div>
+<div id="numpy-basics" class="section level1">
+<h1>NumPy : basics</h1>
+<div id="create-an-array-and-multi-dim-array" class="section level2">
+<h2>Create an array and multi Dim array</h2>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG4jIGltcG9ydCBudW1weVxuIyBmcm9tIG51bXB5IGltcG9ydCAqXG5pbXBvcnQgbnVtcHkgYXMgbnBcblxuIyMgTnAgYXJyYXlcblxuYSA9IG5wLmFycmF5KFsxLDIsMyw0XSwgZmxvYXQpXG5wcmludCBcIkRhdGEgdHlwZSBvZiBhIDogXCIsIHR5cGUoYSlcbnByaW50IFwiNHRoIGVsZW1lbnQgb2YgYSA6IFwiLGFbM11cblxuYiA9IG5wLmFycmF5KFtbMiwzLDRdLFs5LDMsMV1dLGZsb2F0KVxucHJpbnQgXCJNYXRyaXggQjogXCJcbnByaW50IGJcbnByaW50IFwiRGltZW5zaW9uIG9mIEIgaXMgOiBcIiwgYi5zaGFwZVxucHJpbnQgYlswLDFdXG5wcmludCBiWzEsMl1cbmBgYCJ9 -->
+<pre class="python"><code># import numpy
+# from numpy import *
+import numpy as np
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiSW50cm9kdWN0aW9uIHRvIE51bXB5IGFuZCBTY2lweSIKb3V0cHV0OiAKICBodG1sX25vdGVib29rOgogICAgdG9jOiB0cnVlCiAgICB0b2NfZmxvYXQ6IHRydWUKLS0tCgo=</div>
+## Np array
+
+a = np.array([1,2,3,4], float)
+print &quot;Data type of a : &quot;, type(a)
+print &quot;4th element of a : &quot;,a[3]
+
+b = np.array([[2,3,4],[9,3,1]],float)
+print &quot;Matrix B: &quot;
+print b
+print &quot;Dimension of B is : &quot;, b.shape
+print b[0,1]
+print b[1,2]</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRGF0YSB0eXBlIG9mIGEgOiAgPHR5cGUgJ251bXB5Lm5kYXJyYXknPlxuNHRoIGVsZW1lbnQgb2YgYSA6ICA0LjBcbk1hdHJpeCBCOiBcbltbIDIuICAzLiAgNC5dXG4gWyA5LiAgMy4gIDEuXV1cbkRpbWVuc2lvbiBvZiBCIGlzIDogICgyLCAzKVxuMy4wXG4xLjBcbiJ9 -->
+<pre><code>Data type of a :  &lt;type 'numpy.ndarray'&gt;
+4th element of a :  4.0
+Matrix B: 
+[[ 2.  3.  4.]
+ [ 9.  3.  1.]]
+Dimension of B is :  (2, 3)
+3.0
+1.0</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="subsetting-multi-dim-array" class="section level2">
+<h2>Subsetting multi dim array</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5pbXBvcnQgbnVtcHkgYXMgbnBcbmIgPSBucC5hcnJheShbWzIsMyw0XSxbOSwzLDFdXSxmbG9hdClcbiMjIHVzaW5nIDogdG8gc2VsZWN0IGNvbHVtbiBcbnByaW50IGJbMDoyLDFdXG5cbnByaW50IGJbOiwwOjJdXG5cbnByaW50IGJbOiw6LTFdXG5cbnByaW50IGJbMDoxLDpdXG5wcmludCBiWzE6Miw6XVxuXG5gYGAifQ== -->
+<pre class="python"><code>import numpy as np
+b = np.array([[2,3,4],[9,3,1]],float)
+## using : to select column 
+print b[0:2,1]
+
+print b[:,0:2]
+
+print b[:,:-1]
+
+print b[0:1,:]
+print b[1:2,:]
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWyAzLiAgMy5dXG5bWyAyLiAgMy5dXG4gWyA5LiAgMy5dXVxuW1sgMi4gIDMuXVxuIFsgOS4gIDMuXV1cbltbIDIuICAzLiAgNC5dXVxuW1sgOS4gIDMuICAxLl1dXG4ifQ== -->
+<pre><code>[ 3.  3.]
+[[ 2.  3.]
+ [ 9.  3.]]
+[[ 2.  3.]
+ [ 9.  3.]]
+[[ 2.  3.  4.]]
+[[ 9.  3.  1.]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="basic-attributes" class="section level2">
+<h2>basic attributes</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5pbXBvcnQgbnVtcHkgYXMgbnBcblxuYSA9IG5wLmFycmF5KFtbMTIsMS4zLDIuM10sWzUsNiw4LjA5XSxbMSwwLDFdXSxmbG9hdClcblxuIyMgbWF0cml4IGxlbmd0aFxucHJpbnQgbGVuKGEpXG4jIyBtYXRyaXggRGltZW5zaW9uc1xucHJpbnQgYS5zaGFwZVxuXG4jIyBtYXRyaXggZGF0YXR5cGVcbnByaW50IHR5cGUoYSlcbnByaW50IGEuZHR5cGVcblxuIyMgU2VhcmNoIGEgdmFsdWUgaW4gYW4gYXJyYXlcbnByaW50IDIuMyBpbiBhXG5wcmludCAyIGluIGFcblxuYGBgIn0= -->
+<pre class="python"><code>import numpy as np
+
+a = np.array([[12,1.3,2.3],[5,6,8.09],[1,0,1]],float)
+
+## matrix length
+print len(a)
+## matrix Dimensions
+print a.shape
+
+## matrix datatype
+print type(a)
+print a.dtype
+
+## Search a value in an array
+print 2.3 in a
+print 2 in a
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiM1xuKDMsIDMpXG48dHlwZSAnbnVtcHkubmRhcnJheSc+XG5mbG9hdDY0XG5UcnVlXG5GYWxzZVxuIn0= -->
+<pre><code>3
+(3, 3)
+&lt;type 'numpy.ndarray'&gt;
+float64
+True
+False</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="creating-array-of-given-lenght" class="section level2">
+<h2>Creating array of given lenght</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5pbXBvcnQgbnVtcHkgYXMgbnBcblxuXG5hID0gbnAuYXJyYXkocmFuZ2UoMTApLCBmbG9hdClcbnByaW50IGFcblxuYSA9IGEucmVzaGFwZSg1LDIpXG5wcmludCBhXG5wcmludCBhLnNoYXBlXG5cbiMjIENyZWF0aW5nIGEgbWF0cml4IFxuXG5hID0gbnAuYXJyYXkocmFuZ2UoMTApLCBmbG9hdCkucmVzaGFwZSgyLDUpXG5wcmludCBhXG5cblxuYGBgIn0= -->
+<pre class="python"><code>import numpy as np
+
+
+a = np.array(range(10), float)
+print a
+
+a = a.reshape(5,2)
+print a
+print a.shape
+
+## Creating a matrix 
+
+a = np.array(range(10), float).reshape(2,5)
+print a
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWyAwLiAgMS4gIDIuICAzLiAgNC4gIDUuICA2LiAgNy4gIDguICA5Ll1cbltbIDAuICAxLl1cbiBbIDIuICAzLl1cbiBbIDQuICA1Ll1cbiBbIDYuICA3Ll1cbiBbIDguICA5Ll1dXG4oNSwgMilcbltbIDAuICAxLiAgMi4gIDMuICA0Ll1cbiBbIDUuICA2LiAgNy4gIDguICA5Ll1dXG4ifQ== -->
+<pre><code>[ 0.  1.  2.  3.  4.  5.  6.  7.  8.  9.]
+[[ 0.  1.]
+ [ 2.  3.]
+ [ 4.  5.]
+ [ 6.  7.]
+ [ 8.  9.]]
+(5, 2)
+[[ 0.  1.  2.  3.  4.]
+ [ 5.  6.  7.  8.  9.]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="crarting-zero-matrix-and-one-matrix" class="section level2">
+<h2>Crarting zero matrix and one matrix</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5pbXBvcnQgbnVtcHkgYXMgbnBcblxuIyMgY3JlYXRlIGEgMlgzIHplcm8gbWF0cml4IFxuYSA9IG5wLnplcm9zKCgyLDMpLCBmbG9hdClcbnByaW50IGFcbnByaW50IFxuXG4jIyBjcmVhdGUgYSAyWDMgb25lIG1hdHJpeCBcbmEgPSBucC5vbmVzKCgyLDMpLCBmbG9hdClcbnByaW50IGFcbnByaW50IFxuIz09XG5cbiMjIGNyZWF0ZSB6ZXJvcyBtYXRyaXggb2YgYSBnaXZlbiBtYXRyaXggZGltXG5hID0gbnAuYXJyYXkocmFuZ2UoMTApLCBmbG9hdCkucmVzaGFwZSgyLDUpXG5wcmludCBhLnNoYXBlXG5wcmludCBcblxuXG5hX3ogPSBucC56ZXJvc19saWtlKGEsIGZsb2F0KVxucHJpbnQgYV96XG5wcmludCBcblxuYV9vID0gbnAub25lc19saWtlKGEsIGZsb2F0KVxucHJpbnQgYV9vXG5wcmludCBcblxuYGBgIn0= -->
+<pre class="python"><code>import numpy as np
+
+## create a 2X3 zero matrix 
+a = np.zeros((2,3), float)
+print a
+print 
+
+## create a 2X3 one matrix 
+a = np.ones((2,3), float)
+print a
+print 
+#==
+
+## create zeros matrix of a given matrix dim
+a = np.array(range(10), float).reshape(2,5)
+print a.shape
+print 
+
+
+a_z = np.zeros_like(a, float)
+print a_z
+print 
+
+a_o = np.ones_like(a, float)
+print a_o
+print 
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiW1sgMC4gIDAuICAwLl1cbiBbIDAuICAwLiAgMC5dXVxuXG5bWyAxLiAgMS4gIDEuXVxuIFsgMS4gIDEuICAxLl1dXG5cbigyLCA1KVxuXG5bWyAwLiAgMC4gIDAuICAwLiAgMC5dXG4gWyAwLiAgMC4gIDAuICAwLiAgMC5dXVxuXG5bWyAxLiAgMS4gIDEuICAxLiAgMS5dXG4gWyAxLiAgMS4gIDEuICAxLiAgMS5dXVxuIn0= -->
+<pre><code>[[ 0.  0.  0.]
+ [ 0.  0.  0.]]
+
+[[ 1.  1.  1.]
+ [ 1.  1.  1.]]
+
+(2, 5)
+
+[[ 0.  0.  0.  0.  0.]
+ [ 0.  0.  0.  0.  0.]]
+
+[[ 1.  1.  1.  1.  1.]
+ [ 1.  1.  1.  1.  1.]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="creating-an-identity-matrix" class="section level2">
+<h2>Creating an identity matrix</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5pbXBvcnQgbnVtcHkgYXMgbnBcblxuIyMgY3JlYXRlIGEgNFg0IGlkZW50aXR5ICBtYXRyaXggXG5hID0gbnAuaWRlbnRpdHkoNCwgZmxvYXQpXG5wcmludCBhXG5wcmludCBcblxuXG5cbiMjIENyZWF0ZSA0WDQgaWRlbnRpdHkgbWF0cml4IHdpdGggMiBjb2wgd2l0aCAxcyAoMSBjb2wgaXMgdGhlIGRpYWdvbmFsKVxucHJpbnQgbnAuZXllKDQsIGs9MSlcblxucHJpbnQgXG5cbmBgYCJ9 -->
+<pre class="python"><code>import numpy as np
+
+## create a 4X4 identity  matrix 
+a = np.identity(4, float)
+print a
+print 
+
+
+
+## Create 4X4 identity matrix with 2 col with 1s (1 col is the diagonal)
+print np.eye(4, k=1)
+
+print 
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiW1sgMS4gIDAuICAwLiAgMC5dXG4gWyAwLiAgMS4gIDAuICAwLl1cbiBbIDAuICAwLiAgMS4gIDAuXVxuIFsgMC4gIDAuICAwLiAgMS5dXVxuXG5bWyAwLiAgMS4gIDAuICAwLl1cbiBbIDAuICAwLiAgMS4gIDAuXVxuIFsgMC4gIDAuICAwLiAgMS5dXG4gWyAwLiAgMC4gIDAuICAwLl1dXG4ifQ== -->
+<pre><code>[[ 1.  0.  0.  0.]
+ [ 0.  1.  0.  0.]
+ [ 0.  0.  1.  0.]
+ [ 0.  0.  0.  1.]]
+
+[[ 0.  1.  0.  0.]
+ [ 0.  0.  1.  0.]
+ [ 0.  0.  0.  1.]
+ [ 0.  0.  0.  0.]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="matrix-arithmatics" class="section level1">
+<h1>Matrix arithmatics</h1>
+<div id="matrics-adition" class="section level2">
+<h2>Matrics adition</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5pbXBvcnQgbnVtcHkgYXMgbnBcblxuYSA9IG5wLmFycmF5KHJhbmdlKDEsNyksIGR0eXBlPWludCkucmVzaGFwZSgzLDIpXG5wcmludCBhXG5wcmludCBcblxuYiA9IG5wLmFycmF5KHJhbmdlKDExLDE3KSwgZHR5cGU9aW50KS5yZXNoYXBlKDMsMilcbnByaW50IGJcbnByaW50IFxuXG5cbnByaW50IGErYiBcblxuYyA9IG5wLmFycmF5KHJhbmdlKDExLDE3KSwgZHR5cGU9aW50KS5yZXNoYXBlKDIsMylcbnByaW50IGNcbnByaW50IFxuXG4jIHByaW50IGMrYlxuIyMjIFZhbHVlRXJyb3I6IG9wZXJhbmRzIGNvdWxkIG5vdCBiZSBicm9hZGNhc3QgdG9nZXRoZXIgd2l0aCBzaGFwZXMgKDIsMykgKDMsMikgXG5cbmQ9IG5wLmFycmF5KHJhbmdlKDIsNCksIGR0eXBlPWludClcbnByaW50IGRcbnByaW50IFxuXG5wcmludCBiK2RcblxuI3ByaW50IGIrZC5yZXNoYXBlKDIsMSkgXG4jIyMgVmFsdWVFcnJvcjogb3BlcmFuZHMgY291bGQgbm90IGJlIGJyb2FkY2FzdCB0b2dldGhlciB3aXRoIHNoYXBlcyAoMywyKSAoMiwxKSBcblxuYGBgIn0= -->
+<pre class="python"><code>import numpy as np
+
+a = np.array(range(1,7), dtype=int).reshape(3,2)
+print a
+print 
+
+b = np.array(range(11,17), dtype=int).reshape(3,2)
+print b
+print 
+
+
+print a+b 
+
+c = np.array(range(11,17), dtype=int).reshape(2,3)
+print c
+print 
+
+# print c+b
+### ValueError: operands could not be broadcast together with shapes (2,3) (3,2) 
+
+d= np.array(range(2,4), dtype=int)
+print d
+print 
+
+print b+d
+
+#print b+d.reshape(2,1) 
+### ValueError: operands could not be broadcast together with shapes (3,2) (2,1) 
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiW1sxIDJdXG4gWzMgNF1cbiBbNSA2XV1cblxuW1sxMSAxMl1cbiBbMTMgMTRdXG4gWzE1IDE2XV1cblxuW1sxMiAxNF1cbiBbMTYgMThdXG4gWzIwIDIyXV1cbltbMTEgMTIgMTNdXG4gWzE0IDE1IDE2XV1cblxuWzIgM11cblxuW1sxMyAxNV1cbiBbMTUgMTddXG4gWzE3IDE5XV1cbiJ9 -->
+<pre><code>[[1 2]
+ [3 4]
+ [5 6]]
+
+[[11 12]
+ [13 14]
+ [15 16]]
+
+[[12 14]
+ [16 18]
+ [20 22]]
+[[11 12 13]
+ [14 15 16]]
+
+[2 3]
+
+[[13 15]
+ [15 17]
+ [17 19]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiSW50cm9kdWN0aW9uIHRvIE51bXB5IGFuZCBTY2lweSIKb3V0cHV0OiAKICBodG1sX25vdGVib29rOgogICAgdG9jOiB0cnVlCiAgICB0b2NfZmxvYXQ6IHRydWUKLS0tCgojIE51bWVyaWNhbCBQeXRob24gOiBOdW1QeSAKCiAqIE9wZW4tc291cmNlIGFkZC1vbiBtb2R1bGVzIHRvIFB5dGhvbiAgCiAqIGNvbnRhaW5zIG1hdGhlbWF0aWNhbCBhbmQgbnVtZXJpY2FsIHJvdXRpbmVzIGluIHByZS1jb21waWxlZCBhbmQgZmFzdCBmdW5jdGlvbnMuCiAqIHNwZWVkIGNhbiBjb21wZXRlIHdpdGggTWF0TGFiCiAqIFNvbWUgdXNlZnVsIGFsZ29yaXRobXMgaW5jbHVlIDogbWluaW1pemF0aW9uLCBGVCwgcmVncmVzc2lvbiBldGMuCiAqIERvd25sb2FkIGZyb20gOiBnaXQgY2xvbmUgaHR0cHM6Ly9naXRodWIuY29tL251bXB5L251bXB5LmdpdCBudW1weQogCiAKIyBOdW1QeSA6IGJhc2ljcyAKCiMjIENyZWF0ZSBhbiBhcnJheSBhbmQgbXVsdGkgRGltIGFycmF5CgpgYGB7cHl0aG9ufQojIGltcG9ydCBudW1weQojIGZyb20gbnVtcHkgaW1wb3J0ICoKaW1wb3J0IG51bXB5IGFzIG5wCgojIyBOcCBhcnJheQoKYSA9IG5wLmFycmF5KFsxLDIsMyw0XSwgZmxvYXQpCnByaW50ICJEYXRhIHR5cGUgb2YgYSA6ICIsIHR5cGUoYSkKcHJpbnQgIjR0aCBlbGVtZW50IG9mIGEgOiAiLGFbM10KCmIgPSBucC5hcnJheShbWzIsMyw0XSxbOSwzLDFdXSxmbG9hdCkKcHJpbnQgIk1hdHJpeCBCOiAiCnByaW50IGIKcHJpbnQgIkRpbWVuc2lvbiBvZiBCIGlzIDogIiwgYi5zaGFwZQpwcmludCBiWzAsMV0KcHJpbnQgYlsxLDJdCmBgYAoKIyMgU3Vic2V0dGluZyBtdWx0aSBkaW0gYXJyYXkKYGBge3B5dGhvbn0KaW1wb3J0IG51bXB5IGFzIG5wCmIgPSBucC5hcnJheShbWzIsMyw0XSxbOSwzLDFdXSxmbG9hdCkKIyMgdXNpbmcgOiB0byBzZWxlY3QgY29sdW1uIApwcmludCBiWzA6MiwxXQoKcHJpbnQgYls6LDA6Ml0KCnByaW50IGJbOiw6LTFdCgpwcmludCBiWzA6MSw6XQpwcmludCBiWzE6Miw6XQoKYGBgCgoKIyMgYmFzaWMgYXR0cmlidXRlcwoKYGBge3B5dGhvbn0KaW1wb3J0IG51bXB5IGFzIG5wCgphID0gbnAuYXJyYXkoW1sxMiwxLjMsMi4zXSxbNSw2LDguMDldLFsxLDAsMV1dLGZsb2F0KQoKIyMgbWF0cml4IGxlbmd0aApwcmludCBsZW4oYSkKIyMgbWF0cml4IERpbWVuc2lvbnMKcHJpbnQgYS5zaGFwZQoKIyMgbWF0cml4IGRhdGF0eXBlCnByaW50IHR5cGUoYSkKcHJpbnQgYS5kdHlwZQoKIyMgU2VhcmNoIGEgdmFsdWUgaW4gYW4gYXJyYXkgdXNpbmcgJ2luJwpwcmludCAyLjMgaW4gYQpwcmludCAyIGluIGEKCgoKYGBgCgoKIyMgQ3JlYXRpbmcgYXJyYXkgb2YgZ2l2ZW4gbGVuZ2h0CgpgYGB7cHl0aG9ufQppbXBvcnQgbnVtcHkgYXMgbnAKCgphID0gbnAuYXJyYXkocmFuZ2UoMTApLCBmbG9hdCkKcHJpbnQgYQoKYSA9IGEucmVzaGFwZSg1LDIpCnByaW50IGEKcHJpbnQgYS5zaGFwZQoKIyMgQ3JlYXRpbmcgYSBtYXRyaXggCgphID0gbnAuYXJyYXkocmFuZ2UoMTApLCBmbG9hdCkucmVzaGFwZSgyLDUpCnByaW50IGEKCmBgYAoKIyMgQ3JhcnRpbmcgemVybyBtYXRyaXggYW5kIG9uZSBtYXRyaXgKCmBgYHtweXRob259CmltcG9ydCBudW1weSBhcyBucAoKIyMgY3JlYXRlIGEgMlgzIHplcm8gbWF0cml4IAphID0gbnAuemVyb3MoKDIsMyksIGZsb2F0KQpwcmludCBhCnByaW50IAoKIyMgY3JlYXRlIGEgMlgzIG9uZSBtYXRyaXggCmEgPSBucC5vbmVzKCgyLDMpLCBmbG9hdCkKcHJpbnQgYQpwcmludCAKIz09CgojIyBjcmVhdGUgemVyb3MgbWF0cml4IG9mIGEgZ2l2ZW4gbWF0cml4IGRpbQphID0gbnAuYXJyYXkocmFuZ2UoMTApLCBmbG9hdCkucmVzaGFwZSgyLDUpCnByaW50IGEuc2hhcGUKcHJpbnQgCgoKYV96ID0gbnAuemVyb3NfbGlrZShhLCBmbG9hdCkKcHJpbnQgYV96CnByaW50IAoKYV9vID0gbnAub25lc19saWtlKGEsIGZsb2F0KQpwcmludCBhX28KcHJpbnQgCgpgYGAKCiMjIENyZWF0aW5nIGFuIGlkZW50aXR5IG1hdHJpeCAKCmBgYHtweXRob259CmltcG9ydCBudW1weSBhcyBucAoKIyMgY3JlYXRlIGEgNFg0IGlkZW50aXR5ICBtYXRyaXggCmEgPSBucC5pZGVudGl0eSg0LCBmbG9hdCkKcHJpbnQgYQpwcmludCAKCgoKIyMgQ3JlYXRlIDRYNCBpZGVudGl0eSBtYXRyaXggd2l0aCAyIGNvbCB3aXRoIDFzICgxIGNvbCBpcyB0aGUgZGlhZ29uYWwpCnByaW50IG5wLmV5ZSg0LCBrPTEpICAjIyBuZWVkcyBkdHlwZT1EQVRBVFlQRQoKcHJpbnQgCgpgYGAKCgojIE1hdHJpeCBhcml0aG1hdGljcwoKIyMgTWF0cmljcyBhZGl0aW9uCgpgYGB7cHl0aG9ufQppbXBvcnQgbnVtcHkgYXMgbnAKCmEgPSBucC5hcnJheShyYW5nZSgxLDcpLCBkdHlwZT1pbnQpLnJlc2hhcGUoMywyKQpwcmludCBhCnByaW50IAoKYiA9IG5wLmFycmF5KHJhbmdlKDExLDE3KSwgZHR5cGU9aW50KS5yZXNoYXBlKDMsMikKcHJpbnQgYgpwcmludCAKCgpwcmludCBhK2IgCgpjID0gbnAuYXJyYXkocmFuZ2UoMTEsMTcpLCBkdHlwZT1pbnQpLnJlc2hhcGUoMiwzKQpwcmludCBjCnByaW50IAoKIyBwcmludCBjK2IKIyMjIFZhbHVlRXJyb3I6IG9wZXJhbmRzIGNvdWxkIG5vdCBiZSBicm9hZGNhc3QgdG9nZXRoZXIgd2l0aCBzaGFwZXMgKDIsMykgKDMsMikgCgpkPSBucC5hcnJheShyYW5nZSgyLDQpLCBkdHlwZT1pbnQpCnByaW50IGQKcHJpbnQgCgpwcmludCBiK2QKCiNwcmludCBiK2QucmVzaGFwZSgyLDEpIAojIyMgVmFsdWVFcnJvcjogb3BlcmFuZHMgY291bGQgbm90IGJlIGJyb2FkY2FzdCB0b2dldGhlciB3aXRoIHNoYXBlcyAoMywyKSAoMiwxKSAKCmBgYAoKCg==</div>
 
 
 </div>

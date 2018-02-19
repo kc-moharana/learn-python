@@ -6,3 +6,186 @@ output:
     toc_float: true
 ---
 
+# Numerical Python : NumPy 
+
+ * Open-source add-on modules to Python  
+ * contains mathematical and numerical routines in pre-compiled and fast functions.
+ * speed can compete with MatLab
+ * Some useful algorithms inclue : minimization, FT, regression etc.
+ * Download from : git clone https://github.com/numpy/numpy.git numpy
+ 
+ 
+# NumPy : basics 
+
+## Create an array and multi Dim array
+
+```{python}
+# import numpy
+# from numpy import *
+import numpy as np
+
+## Np array
+
+a = np.array([1,2,3,4], float)
+print "Data type of a : ", type(a)
+print "4th element of a : ",a[3]
+
+b = np.array([[2,3,4],[9,3,1]],float)
+print "Matrix B: "
+print b
+print "Dimension of B is : ", b.shape
+print b[0,1]
+print b[1,2]
+```
+
+## Subsetting multi dim array
+```{python}
+import numpy as np
+b = np.array([[2,3,4],[9,3,1]],float)
+## using : to select column 
+print b[0:2,1]
+
+print b[:,0:2]
+
+print b[:,:-1]
+
+print b[0:1,:]
+print b[1:2,:]
+
+```
+
+
+## basic attributes
+
+```{python}
+import numpy as np
+
+a = np.array([[12,1.3,2.3],[5,6,8.09],[1,0,1]],float)
+
+## matrix length
+print len(a)
+## matrix Dimensions
+print a.shape
+
+## matrix datatype
+print type(a)
+print a.dtype
+
+## Search a value in an array using 'in'
+print 2.3 in a
+print 2 in a
+
+
+
+```
+
+
+## Creating array of given lenght
+
+```{python}
+import numpy as np
+
+
+a = np.array(range(10), float)
+print a
+
+a = a.reshape(5,2)
+print a
+print a.shape
+
+## Creating a matrix 
+
+a = np.array(range(10), float).reshape(2,5)
+print a
+
+```
+
+## Crarting zero matrix and one matrix
+
+```{python}
+import numpy as np
+
+## create a 2X3 zero matrix 
+a = np.zeros((2,3), float)
+print a
+print 
+
+## create a 2X3 one matrix 
+a = np.ones((2,3), float)
+print a
+print 
+#==
+
+## create zeros matrix of a given matrix dim
+a = np.array(range(10), float).reshape(2,5)
+print a.shape
+print 
+
+
+a_z = np.zeros_like(a, float)
+print a_z
+print 
+
+a_o = np.ones_like(a, float)
+print a_o
+print 
+
+```
+
+## Creating an identity matrix 
+
+```{python}
+import numpy as np
+
+## create a 4X4 identity  matrix 
+a = np.identity(4, float)
+print a
+print 
+
+
+
+## Create 4X4 identity matrix with 2 col with 1s (1 col is the diagonal)
+print np.eye(4, k=1)  ## needs dtype=DATATYPE
+
+print 
+
+```
+
+
+# Matrix arithmatics
+
+## Matrics adition
+
+```{python}
+import numpy as np
+
+a = np.array(range(1,7), dtype=int).reshape(3,2)
+print a
+print 
+
+b = np.array(range(11,17), dtype=int).reshape(3,2)
+print b
+print 
+
+
+print a+b 
+
+c = np.array(range(11,17), dtype=int).reshape(2,3)
+print c
+print 
+
+# print c+b
+### ValueError: operands could not be broadcast together with shapes (2,3) (3,2) 
+
+d= np.array(range(2,4), dtype=int)
+print d
+print 
+
+print b+d
+
+#print b+d.reshape(2,1) 
+### ValueError: operands could not be broadcast together with shapes (3,2) (2,1) 
+
+```
+
+
