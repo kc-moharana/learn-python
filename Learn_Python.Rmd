@@ -1,8 +1,8 @@
 ---
 title: "Python Basics"
-output: 
+output:
   html_notebook:
-    toc: true
+    toc: yes
     toc_depth: 2
 ---
 

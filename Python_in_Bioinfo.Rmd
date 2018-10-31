@@ -8,7 +8,7 @@ This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
 
 
-# Strings and advanced string functions
+# Strings and advanced string functions (Without using BioPython library)
 
 ```{python}
 dna = 'gcatgacgttattacgactctgtcacgccgcggtgcgactgaggcgtggcgtctgctggg'
@@ -135,6 +135,9 @@ def gen_all_digests(enz):
 
 
 
+# Creating a SeqRecord
+
+## From scratch
 
 
 
